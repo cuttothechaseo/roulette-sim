@@ -1,3 +1,6 @@
+import random
+
+
 def summarize_rounds(rounds):
     wins = 0
     losses = 0
@@ -37,6 +40,11 @@ def get_color(number, red_numbers):
         return "black"
 
 
+def spin_number():
+    n = random.randint(0, 5)
+    return n
+
+
 def main():
     rounds = [
         {"bet": "red", "amount": 10, "won": True},
@@ -46,11 +54,16 @@ def main():
     ]
     summary = summarize_rounds(rounds)
     print(summary)
+
     red_numbers = [1, 3, 5]
     numbers = [0, 1, 2, 3, 4, 5]
     for number in numbers:
-        get_color(number, red_numbers)
-    print(number)
+        color = get_color(number, red_numbers)
+        print(number, color)
+
+    n = spin_number()
+    color = get_color(n, red_numbers)
+    print(n, color)
 
 
 if __name__ == "__main__":
