@@ -35,6 +35,20 @@ def get_bet_color():
             print("Please choose red or black:")
 
 
+def get_bet_amount(bankroll):
+    while True:
+        try:
+            bet_amount = int(input(f"You have {bankroll}: Enter your bet:"))
+            if bet_amount <= 0:
+                print("Your bet must be greater than 0.")
+            elif bet_amount > bankroll:
+                print("Your bet must not exceed your bankroll.")
+            else:
+                return bet_amount
+        except ValueError:
+            print("Invalid bet. Please enter a whole number.")
+
+
 def update_bankroll(bankroll, bet_amount, bet_won):
     if bet_won is True:
         bankroll += bet_amount
@@ -44,7 +58,8 @@ def update_bankroll(bankroll, bet_amount, bet_won):
         return bankroll
 
 
-def play_round(bankroll, bet_amount):
+def play_round(bankroll):
+    bet_amount = get_bet_amount(bankroll)
     bet_color = get_bet_color()
     spun_number = spin_wheel()
     result_color = get_color(spun_number)
@@ -59,12 +74,28 @@ def play_round(bankroll, bet_amount):
     return bankroll
 
 
+def get_play_again():
+    valid_response = ["yes", "no"]
+
+    while True:
+        response = input("Play again? (Yes/No):").lower()
+        if response in valid_response:
+            if response == "yes":
+                return True
+            else:
+                return False
+        else:
+            print("Please choose yes or no.")
+
+
 def main():
     bankroll = 100
-    bet_amount = 10
-    bankroll = play_round(bankroll, bet_amount)
+    bankroll = play_round(bankroll)
 
     print(f"Bankroll: {bankroll}")
+
+    play_again = get_play_again()
+    print(play_again)
 
 
 if __name__ == "__main__":
