@@ -90,12 +90,15 @@ def get_play_again():
 
 def main():
     bankroll = 100
-    bankroll = play_round(bankroll)
+    play_again = True
 
-    print(f"Bankroll: {bankroll}")
-
-    play_again = get_play_again()
-    print(play_again)
+    while bankroll > 0 and play_again is True:
+        bankroll = play_round(bankroll)
+        print(f"Bankroll: {bankroll}")
+        if bankroll == 0:
+            print("Out of money.")
+        else:
+            play_again = get_play_again()
 
 
 if __name__ == "__main__":
